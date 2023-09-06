@@ -1,21 +1,25 @@
-package classess;
+package dbConnect;
+
 import java.sql.*;
 
 public class dbConnection {
-    public static void main (String[] args) {
-        String url="jdbc:mysql://localhost:3306/jdbcdemo";
-        String username="root";
-        String password="";
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection(url,username,password);
-            Statement statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("select * from users");
-            while(resultSet.next()){
-                System.out.println(resultSet.getInt(1)+" "+resultSet.getString(2)+ resultSet.getString(3));
-            }
-        }catch (Exception e){
-            System.out.println(e);
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/jdbcdemo";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "";
+
+    private static Connection connection;
+
+    public dbConnection() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Charger le pilote JDBC
+            connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
     }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
 }

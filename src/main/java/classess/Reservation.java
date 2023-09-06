@@ -11,7 +11,7 @@ public class Reservation{
     private int Quantity;
     private Boolean Status;
 
-    public Reservations(Books book,Users user,Date date_initial, Date date_final, Date date_returned, int Quantity , boolean Status) {
+    public Reservation(Books book,Users user,Date date_initial, Date date_final, Date date_returned, int Quantity , boolean Status) {
         this.book=book;
         this.user=user;
         this.date_initial=date_initial;
