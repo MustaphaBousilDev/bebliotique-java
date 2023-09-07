@@ -13,6 +13,7 @@ public class Listss {
                     2 _ Search Books\\s
                     3 _ delete Books\\s
                     4 _ modify Books\\s
+                    5 _ display Books\\s
                     2 _ Exit
             """
         );
@@ -59,6 +60,10 @@ public class Listss {
                     default -> System.out.println("Choix non valide");
                 }
             }
+            case "3" -> {
+                System.out.println("Delete book");
+                book.delete();
+            }
             case "4" -> {
                 String isbn;
                 System.out.println("Modify : ");
@@ -75,13 +80,13 @@ public class Listss {
 
                 } while (isbn.isEmpty());
             }
-            case "3" -> {
-                System.out.println("Delete book");
-                book.delete();
+            case "5" -> {
+                book.display();
             }
 
 
-            case "8" -> System.out.println("Retourner un livre");
+
+            //case "8" -> System.out.println("Retourner un livre");
 
             default -> {
             }

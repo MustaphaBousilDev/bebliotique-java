@@ -8,7 +8,7 @@ public class Main {
         list.ListMenu();
         String choix;
         do {
-            System.out.println("Enter le choix : ");
+            System.out.println("Choose : ");
             choix = in.nextLine();
             list.HelloWithSwitchOption(choix);
         }while (!choix.equals("10"));

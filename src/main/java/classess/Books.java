@@ -65,7 +65,7 @@ public class Books{
         return QntPerdus;
     }
 
-    public void display(String status){
+    public void display(){
         String query = "SELECT * FROM book where status='enable'";
         try (PreparedStatement statement = db.getConnection().prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
@@ -76,9 +76,9 @@ public class Books{
             System.out.println("----------------------------------------------------------------------------------------------------------");
             while (resultSet.next()) {
                 String Isbn = resultSet.getString("Isbn");
-                String Titre = resultSet.getString("Title");
-                String Auteur = resultSet.getString("Author");
-                String Statut = resultSet.getString("Status");
+                String Title = resultSet.getString("Title");
+                String Author = resultSet.getString("Author");
+                String Status = resultSet.getString("Status");
                 int QntTotal = resultSet.getInt("QntTotal");
                 int QntEmprunt = resultSet.getInt("QntEmprunt");
                 int QntPerdus = resultSet.getInt("QntPerdus");
