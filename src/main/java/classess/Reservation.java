@@ -1,64 +1,55 @@
 package classess;
 
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import dbConnect.dbConnection;
 
-public class Reservation{
-    private Books book;
+public class EmprunteurBook {
+    private List<Books> books;
     private Users user;
-    private Date date_initial;
-    private Date date_final;
-    private Date date_returned;
-    private int Quantity;
-    private Boolean Status;
+    private LocalDate DateEmprunt;
+    private LocalDate DateReturn;
+    private LocalDate DateFinal;
 
-    public Reservation(Books book,Users user,Date date_initial, Date date_final, Date date_returned, int Quantity , boolean Status) {
-        this.book=book;
-        this.user=user;
-        this.date_initial=date_initial;
-        this.date_final=date_final;
-        this.date_returned=date_returned;
-        this.Quantity=Quantity;
-        this.Status=Status;
-    }
-    public Books getBook() {
-        return book;
+    public EmprunteurBook(List<Books> book, Users user, LocalDate dateEmprunt, LocalDate dateFinal) {
+        this.books = book;
+        this.user = user;
+        DateEmprunt = dateEmprunt;
+        DateReturn = dateFinal;
     }
 
-    public void setBook(Books book) {
-        this.book = book;
+    public EmprunteurBook(){
+        this.books = new ArrayList<>();
     }
 
+    public List<Books> getBook() {
+        return books;
+    }
 
-    public Users getUser() {
+    public void addBook(Books book) {
+        book.add(book);
+    }
+
+    public Users getEmprunteur() {
         return user;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setEmprunteur(Users emprunteur) {
+        this.user = emprunteur;
     }
 
-    public void setDate_initial(Date date_initial){
-        this.date_initial=date_initial;
+    public LocalDate getDateEmprunt() {
+        return DateEmprunt;
     }
 
-    public Date getDate_initial(Date date_final){
-        return date_final;
+    public void setDateEmprunt(LocalDate dateEmprunt) {
+        DateEmprunt = dateEmprunt;
     }
-
-    public void setDate_final(Date date_final){
-        this.date_final=date_final;
-    }
-
-    public Date getDate_final(){
-        return date_final;
-    }
-
-
-
-
-
-
-
 
 
 }

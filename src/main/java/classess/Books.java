@@ -93,6 +93,7 @@ public class Books{
     public void search(String title,String author){
         String query = "SELECT * FROM book WHERE title LIKE ? OR author LIKE ?";
 
+
         try (PreparedStatement statement = db.getConnection().prepareStatement(query)) {
             statement.setString(1, title );
             statement.setString(2, author);
@@ -111,7 +112,6 @@ public class Books{
                 Integer QntEmprunt = resultSet.getInt("qntEmprunt");
                 Integer QntPerdus = resultSet.getInt("qntPerdus");
                 System.out.println(String.format("| %-16s | %-16s | %-10s | %-10s | %-8d | %-10d | %-9d |",Isbn ,Title, Author,Status,QntTotal , QntEmprunt , QntPerdus));
-
             }
             System.out.println("-----------------------------------------------------------------------------------------------------");
 
