@@ -8,6 +8,7 @@ public class Books{
     dbConnection db = new dbConnection();
     Scanner in = new Scanner(System.in);
     private String ISBN;
+    private Integer Id;
     private String Title;
     private String Author;
     private String Status;
@@ -21,9 +22,15 @@ public class Books{
     public String getISBN() {
         return ISBN;
     }
+    public Integer getId() {
+        return Id;
+    }
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+    public void setId(Integer id) {
+        this.Id =id;
     }
     public String getTitle() {
         return Title;
@@ -56,6 +63,9 @@ public class Books{
     public int getQntEmp() {
         return QntEmprunt;
     }
+    public void setQntEmp(int qntPerdus) {
+        QntPerdus = qntPerdus;
+    }
 
     public void setQntTotal(int qntTotal) {
         QntTotal = qntTotal;
@@ -63,6 +73,9 @@ public class Books{
 
     public int getQntPerd() {
         return QntPerdus;
+    }
+    public void setQntPerd(int qntPerdus) {
+        QntPerdus=qntPerdus;
     }
 
     public void display(){
@@ -275,6 +288,31 @@ public class Books{
             e.printStackTrace();
         }
     }
+
+    public boolean CheckBook(Integer id_book){
+        String query = "SELECT * from book where id=?";
+        try(PreparedStatement statement = db.getConnection().prepareStatement(query)){
+            statement.setInt(1,id_book);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                setId(resultSet.getInt("id"));
+                setISBN(resultSet.getString("isbn"));
+                setTitle(resultSet.getString("Title"));
+                setAuthor(resultSet.getString("author"));
+                setStatus(resultSet.getString("status"));
+                setQntTotal(resultSet.getInt("qntTotal"));
+                setQntEmp(resultSet.getInt("qntEmprunt"));
+                setQntPerd(resultSet.getInt("qntPerdus"));
+                return true;
+            } else {
+                return false; // No matching book found
+            }
+
+        }catch (Exception e){
+            e.getMessage();
+            return false;
+        }
+    }
     public static  boolean  isValidString(String input){
         String regex = "^[a-zA-Z]+$";
         if(input.matches(regex)) {
@@ -282,7 +320,7 @@ public class Books{
         }
         return !input.isEmpty();
     }
-    public static boolean isValidInteger(String input) {
+    public static boolean isValidInteger(String input){
         try {
             // Attempt to parse the input string as an integer
             Integer.parseInt(input);
@@ -291,6 +329,74 @@ public class Books{
         } catch (NumberFormatException e) {
             // If an exception is thrown, return false
             return false;
+        }
+    }
+
+    public void totalBookEnable(){
+        String query="select title,qntTotal - qntEmprunt -qntPerdus as QtyEnable from book where status='enable'";
+        try (PreparedStatement statement = db.getConnection().prepareStatement(query)){
+            //statement.setString(1,getTitre());
+            ResultSet resultSet = statement.executeQuery();
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("|                               Statis                                  |");
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("| Title        |   QntEnable  |");
+            System.out.println("-------------------------------------------------------------------------");
+
+            while (resultSet.next()) {
+                String Title = resultSet.getString("title");
+                Integer QntEnable = resultSet.getInt("QtyEnable");
+                System.out.println(String.format("| %-16s | %-9d |", Title, QntEnable));
+            }
+            System.out.println("-------------------------------------------------------------------------");
+
+        }catch (SQLException e){
+            e.getMessage();
+        }
+
+    }
+    public void totalBookLost(){
+        String query="select title,qntPerdus as QtyLost from book";
+        try (PreparedStatement statement = db.getConnection().prepareStatement(query)){
+            //statement.setString(1,getTitre());
+            ResultSet resultSet = statement.executeQuery();
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("|                               Statis                                  |");
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("| Title        |   QntLost  |");
+            System.out.println("-------------------------------------------------------------------------");
+
+            while (resultSet.next()) {
+                String Title = resultSet.getString("title");
+                Integer QntLost = resultSet.getInt("QtyLost");
+                System.out.println(String.format("| %-16s | %-9d |", Title, QntLost));
+            }
+            System.out.println("-------------------------------------------------------------------------");
+
+        }catch (SQLException e){
+            e.getMessage();
+        }
+    }
+    public void totalBookReserve(){
+        String query="select title,qntEmprunt as QtyEmp from book";
+        try (PreparedStatement statement = db.getConnection().prepareStatement(query)){
+            //statement.setString(1,getTitre());
+            ResultSet resultSet = statement.executeQuery();
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("|                               Statis                                  |");
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("| Title        |   QntEmpr  |");
+            System.out.println("-------------------------------------------------------------------------");
+
+            while (resultSet.next()) {
+                String Title = resultSet.getString("title");
+                Integer QntEmp= resultSet.getInt("QtyEmp");
+                System.out.println(String.format("| %-16s | %-9d |", Title, QntEmp));
+            }
+            System.out.println("-------------------------------------------------------------------------");
+
+        }catch (SQLException e){
+            e.getMessage();
         }
     }
 }
