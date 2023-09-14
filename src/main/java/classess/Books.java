@@ -229,9 +229,9 @@ public class Books{
         String Title;
         String Author;
         String QntTotal;
-        String QntEmprunt;
-        String QntPerdus;
-        String Status;
+        //String QntEmprunt;
+        //String QntPerdus;
+        //String Status;
 
         do {
             System.out.println("Isbn : ");
@@ -257,24 +257,16 @@ public class Books{
             QntTotal = in.nextLine();
         } while (!isValidString(QntTotal));
 
-        do {
-            System.out.println("QntEmprunt : ");
-            QntEmprunt = in.nextLine();
-        } while (!isValidInteger(QntEmprunt));
 
-        do {
-            System.out.println("QntPerdus : ");
-            QntPerdus = in.nextLine();
-        } while (!isValidInteger(QntPerdus));
 
-        String query = "INSERT INTO `book`(`Isbn`, `Title`, `author`, `qntTotal`, `qntEmprunt`, `qntPerdus`) VALUES (?,?,?,?,?,?)";
+
+
+        String query = "INSERT INTO `book`(`Isbn`, `Title`, `author`, `qntTotal`) VALUES (?,?,?,?)";
         try (PreparedStatement statement = db.getConnection().prepareStatement(query)){
             statement.setString(1, Isbn );
             statement.setString(2, getTitle());
             statement.setString(3, getAuthor());
             statement.setInt(4, Integer.parseInt(QntTotal));
-            statement.setInt(5, Integer.parseInt(QntEmprunt));
-            statement.setInt(6, Integer.parseInt(QntPerdus));
 
 
             int rowsInserted = statement.executeUpdate();

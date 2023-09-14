@@ -9,6 +9,7 @@ public class Main {
         list.ListMenu();
         String choix;
         do {
+            list.ListMenu();
             System.out.println("Choose : ");
             choix = in.nextLine();
             list.HelloWithSwitchOption(choix);

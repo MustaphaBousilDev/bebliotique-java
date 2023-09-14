@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import dbConnect.dbConnection;
 
 public class Reservation {
-    private List<Books> books;
+    private List<Books> books;  // null
     private Users user;
     private LocalDate DateEmprunt;
     private LocalDate DateReturn;
@@ -101,6 +101,8 @@ public class Reservation {
             System.out.println( e.getMessage());
         }
     }
+
+
 
     public boolean VerifyBookEmp(Integer book_id,Integer user_id){
         String query = "SELECT * from book INNER JOIN reservation on book.id = reservation.book_id INNER JOIN users ON reservation.user_id = users.id where book.id=? and users.id=?";
